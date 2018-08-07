@@ -52,7 +52,159 @@ for i in range(START_LENGTH+1):
 
     #Save the stamp ID! You'll need to erase it later. Then append
     # it to stamp_list.             
-    stamp_ip = snake.stamp()
-    stamp_list.append(stamp_ip)
+    stamp_id = snake.stamp()
+    stamp_list.append(stamp_id)
+
+
+###############################################################
+#                    PART 2 -- READ INSTRUCTIONS!!
+###############################################################
+UP_ARROW = "Up" #Make sure you pay attention to upper and lower 
+                #case
+LEFT_ARROW = "Left" #Pay attention to upper and lower case
+DOWN_ARROW = "Down" #Pay attention to upper and lower case
+RIGHT_ARROW = "Right" #Pay attention to upper and lower case
+TIME_STEP = 100 #Update snake position after this many 
+                #milliseconds
+SPACEBAR = "space" # Careful, it's not supposed to be capitalized!
+
+UP = 0
+DOWN=1
+LEFT=2
+RIGHT=3
+#1. Make variables LEFT, DOWN, and RIGHT with values 1, 2, and 3
+####WRITE YOUR CODE HERE!!
+
+direction = UP
+
+UP_EDGE = 250
+DOWN_EDGE = -250
+RIGHT_EDGE = 400
+LEFT_EDGE = -400
+
+def UP():
+        #Listen for global direction
+        global direction
+        direction=UP #Change direction to up
+        print("You pressed the up key!")
+
+
+def DOWN():
+        global direction
+        #Listen for global direction
+        direction=DOWN #Change direction to up
+        print("You pressed the DOWN key!")
+
+
+def LEFT():
+        global direction
+        #Listen for global direction
+        direction=LEFT #Change direction to up
+        print("You pressed the LEFT key!")
+
+
+def RIGHT():
+        global direction
+        #Listen for global direction
+        direction=RIGHT #Change direction to up
+        print("You pressed the RIGHT key!")
+        
+##2. Make functions down(), left(), and right() that change direction
+#####WRITE YOUR CODE HERE!!
+
+turtle.onkeypress(UP, UP_ARROW) # Create listener for up key
+turtle.onkeypress(DOWN, DOWN_ARROW) # Create listener for up key
+turtle.onkeypress(LEFT, LEFT_ARROW) # Create listener for up key
+turtle.onkeypress(RIGHT, RIGHT_ARROW) # Create listener for up key
+
+##3. Do the same for the other arrow keys
+#####WRITE YOUR CODE HERE!!
+
+turtle.listen()
+
+def move_snake():
+    
+    my_pos = snake.pos()
+    x_pos = my_pos[0]
+    y_pos = my_pos[1]
+    
+    if direction==RIGHT:
+        snake.goto(x_pos + SQUARE_SIZE, y_pos)
+        print("You moved right!")
+    elif direction==LEFT:
+        snake.goto(x_pos - SQUARE_SIZE, y_pos)
+        print("You moved left!")
+    elif direction==UP:
+        snake.goto(x_pos,y_pos+SQUARE_SIZE)
+        print("You moved up!")
+    elif direction==DOWN:
+        snake.goto(x_pos,y_pos-SQUARE_SIZE)
+        print("You moved down!")
+
+    new_pos = snake.pos()
+    new_x_pos = new_pos[0]
+    new_y_pos = new_pos[1]
+
+    # The next three lines check if the snake is hitting the 
+    # right edge.
+    if new_x_pos >= RIGHT_EDGE:
+        print("You hit the right edge! Game over!")
+        quit()
+
+    if new_x_pos <= LEFT_EDGE:
+        print("You hit the left edge! Game over!")
+        quit()
+
+    if new_y_pos >= UP_EDGE:
+        print("You hit the up edge! Game over!")
+        quit()
+
+    elif new_y_pos <= DOWN_EDGE:
+        print("You hit the down edge! Game over!")
+        quit()
+    
+     # You should write code to check for the left, top, and bottom edges.
+    #####WRITE YOUR CODE HERE
+    #4. Write the conditions for UP and DOWN on your own
+    ##### YOUR CODE HERE
+
+
+    #Stamp new element and append new stamp in list
+    #Remember: The snake position changed - update my_pos()
+
+    my_pos=snake.pos() 
+    pos_list.append(my_pos)
+    new_stamp = snake.stamp()
+    stamp_list.append(new_stamp)
+    ######## SPECIAL PLACE - Remember it for Part 5
+    #pop zeroth element in pos_list to get rid of last the last 
+    #piece of the tail
+    old_stamp = stamp_list.pop(0)
+    snake.clearstamp(old_stamp)
+    pos_list.pop(0)
+    turtle.ontimer(move_snake,TIME_STEP)
+move_snake()
+
+turtle.register_shape("trash.gif") #Add trash picture
+                      # Make sure you have downloaded this shape 
+                      # from the Google Drive folder and saved it
+                      # in the same folder as this Python script
+
+food = turtle.clone()
+food.shape("trash.gif") 
+
+#Locations of food
+food_pos = [(100,100), (-100,100), (-100,-100), (100,-100)]
+food_stamps = []
+
+# Write code that:
+#1. moves the food turtle to each food position
+#2. stamps the food turtle at that location
+#3. saves the stamp by appending it to the food_stamps list using
+# food_stamps.append(    )
+#4. Don’t forget to hide the food turtle!
+for this_food_pos in food_pos :
+    ####WRITE YOUR CODE HERE!!
+
 
 
